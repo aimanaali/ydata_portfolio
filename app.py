@@ -2,6 +2,7 @@ import streamlit as st
 from ydata_profiling import ProfileReport
 from streamlit_ydata_profiling import st_profile_report
 import seaborn as sns
+import pandas as pd
 # dataset
 c = {0: 'anagrams', 1: 'anscombe', 2: 'attention', 3: 'brain_networks',
       4: 'car_crashes', 5: 'diamonds', 6: 'dots', 7: 'dowjones', 8: 'exercise', 
@@ -11,7 +12,13 @@ c = {0: 'anagrams', 1: 'anscombe', 2: 'attention', 3: 'brain_networks',
 st.header("Data set profile report")
 # selectbox
 selected_values=st.sidebar.selectbox('Select a dataset',list(c.values()))
-st.sidebar.write.file_uploader("Upload a CSV,XLsx file", type=["csv","xlsx "])
+uploaded_file=st.sidebar.file_uploader("Upload a CSV,XLsx file", type=["csv","xlsx "])
+if uploaded_file is not None:
+    if uploaded_file.name.endswith('.csv'):
+        dataset = pd.read_csv(uploaded_file)
+    elif uploaded_file.name.endswith('.xlsx'):
+        dataset = pd.read_excel(uploaded_file)
+
 # st.siderbar.text_input("Enter a dataset name","Enter a dataset name")
 # Display the selected value
 st.write(f'You selected: {selected_values}')
