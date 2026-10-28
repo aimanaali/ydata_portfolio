@@ -12,7 +12,7 @@ st.header("Data set profile report")
 # selectbox
 selected_values=st.sidebar.selectbox('Select a dataset',list(c.values()))
 st.sidebar.file_uploader("Upload a CSV,XLsx file", type=["csv","xlsx "])
-st.siderbar.text_input("Enter a dataset name")
+# st.siderbar.text_input("Enter a dataset name","Enter a dataset name")
 # Display the selected value
 st.write(f'You selected: {selected_values}')
 
