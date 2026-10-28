@@ -22,14 +22,14 @@ if uploaded_file is not None:
 # st.siderbar.text_input("Enter a dataset name","Enter a dataset name")
 # Display the selected value
 # st.write(f'You selected: {selected_values}')
-if uploaded_file is not None:
-    if uploaded_file.name.endswith('.csv'):
-        dataset = pd.read_csv(uploaded_file)
-    elif uploaded_file.name.endswith('.xlsx'):
-        dataset = pd.read_excel(uploaded_file)
-else:
-    st.write(f'You selected: {selected_values}')
-    dataset=(sns.load_dataset(selected_values))
+# if uploaded_file is not None:
+#     if uploaded_file.name.endswith('.csv'):
+#         dataset = pd.read_csv(uploaded_file)
+#     elif uploaded_file.name.endswith('.xlsx'):
+#         dataset = pd.read_excel(uploaded_file)
+# else:
+#     st.write(f'You selected: {selected_values}')
+#     dataset=(sns.load_dataset(selected_values))
 
 
 pr = ProfileReport(dataset, title="Report")
