@@ -79,16 +79,46 @@ selected_values = st.sidebar.selectbox(
     help="Disabled while an uploaded file is active.",
 )
 
+# # 4. Load the Dataset based on user input
+# if is_file_uploaded:
+#     if uploaded_file.name.lower().endswith(".csv"):
+#         dataset = pd.read_csv(uploaded_file)
+#     else:
+#         dataset = pd.read_excel(uploaded_file)
+#     st.sidebar.success(f"Loaded uploaded file: {uploaded_file.name}")
+# else:
+#     dataset = sns.load_dataset(selected_values)
+#     st.sidebar.info(f"Analyzing built-in dataset: {selected_values}")
+
 # 4. Load the Dataset based on user input
 if is_file_uploaded:
-    if uploaded_file.name.lower().endswith(".csv"):
-        dataset = pd.read_csv(uploaded_file)
-    else:
-        dataset = pd.read_excel(uploaded_file)
-    st.sidebar.success(f"Loaded uploaded file: {uploaded_file.name}")
+    try:
+        # Check by file extension first
+        if uploaded_file.name.lower().endswith(".csv"):
+            dataset = pd.read_csv(uploaded_file)
+        else:
+            # Explicitly specifying engine can give clearer errors if openpyxl is missing
+            dataset = pd.read_excel(uploaded_file, engine="openpyxl")
+        st.sidebar.success(f"Loaded uploaded file: {uploaded_file.name}")
+        
+    except ImportError as e:
+        st.error("⚠️ **Missing library:** This app requires `openpyxl` to read Excel files. Please add `openpyxl` to your requirements.txt file.")
+        st.stop()
+        
+    except Exception as e:
+        # Fallback layer: If Excel reader failed, try CSV fallback just in case the format was mislabeled
+        st.sidebar.warning("Excel parsing failed. Attempting CSV fallback reading format...")
+        try:
+            uploaded_file.seek(0) # Reset file pointer back to start
+            dataset = pd.read_csv(uploaded_file)
+            st.sidebar.success(f"Loaded file as CSV text: {uploaded_file.name}")
+        except Exception as fallback_error:
+            st.error(f"Could not parse file structure. Original Error: {e}")
+            st.stop()
 else:
     dataset = sns.load_dataset(selected_values)
     st.sidebar.info(f"Analyzing built-in dataset: {selected_values}")
+
 
 # 5. Display Data Preview & Profile Report
 st.subheader("Data Preview")
