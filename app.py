@@ -21,7 +21,7 @@ if uploaded_file is not None:
 
 # st.siderbar.text_input("Enter a dataset name","Enter a dataset name")
 # Display the selected value
-# st.write(f'You selected: {selected_values},{uploaded_file.name if uploaded_file is not None else "No file uploaded"}')
+st.write(f'You selected: {selected_values},{uploaded_file.name if uploaded_file is not None else "No file uploaded"}')
 
 
 dataset=(sns.load_dataset(selected_values))
