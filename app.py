@@ -9,7 +9,7 @@ c = {0: 'anagrams', 1: 'anscombe', 2: 'attention', 3: 'brain_networks',
       9: 'flights', 10: 'fmri', 11: 'geyser', 12: 'glue', 13: 'healthexp', 14: 'iris',
         15: 'mpg', 16: 'penguins', 17: 'planets', 18: 'seaice', 19: 'taxis',
          20: 'tips', 21: 'titanic'}
-st.header("Data set profile report")
+st.header("Data AIMSAT set profile report")
 # selectbox
 selected_values=st.sidebar.selectbox('Select a dataset',list(c.values()))
 uploaded_file=st.sidebar.file_uploader("Upload a CSV,XLsx file", type=["csv","xlsx "])
