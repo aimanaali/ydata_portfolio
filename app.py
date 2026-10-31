@@ -28,7 +28,7 @@ dataset=(sns.load_dataset(selected_values))
 
 
 # pr = ProfileReport(dataset, title="Report")
-st_profile_report('pr')
+# st_profile_report('pr')
 
 
 
