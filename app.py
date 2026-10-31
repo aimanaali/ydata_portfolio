@@ -27,8 +27,8 @@ if uploaded_file is not None:
 dataset=(sns.load_dataset(selected_values))
 
 
-pr = ProfileReport(dataset, title="Report1")
-st_profile_report(pr)
+# pr = ProfileReport(dataset, title="Report")
+st_profile_report('pr')
 
 
 
